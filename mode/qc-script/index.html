@@ -1,28 +1,73 @@
 <!doctype html>
-<html>
-  <head>
-    <title>CodeMirror: QC-Script mode</title>
-    <link rel="stylesheet" href="../../lib/codemirror.css">
-    <script src="../../lib/codemirror.js"></script>
-    <script src="qc-script.js"></script>
-    <link rel="stylesheet" href="../../doc/docs.css">
-    <style type="text/css">.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}</style>
-  </head>
-  <body>
-    <h1>CodeMirror: QC-Script mode</h1>
+
+<title>CodeMirror: QC-Script mode</title>
+<meta charset="utf-8"/>
+<link rel=stylesheet href="../../doc/docs.css">
+
+<link rel="stylesheet" href="../../lib/codemirror.css">
+<script src="../../lib/codemirror.js"></script>
+<script src="../../addon/edit/matchbrackets.js"></script>
+<script src="qc-script.js"></script>
+<style type="text/css">.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}</style>
+<div id=nav>
+  <a href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="../../doc/logo.png"></a>
+
+  <ul>
+    <li><a href="../../index.html">Home</a>
+    <li><a href="../../doc/manual.html">Manual</a>
+    <li><a href="https://github.com/codemirror/codemirror">Code</a>
+  </ul>
+  <ul>
+    <li><a href="../index.html">Language modes</a>
+    <li><a class=active href="#">QC-Script</a>
+  </ul>
+</div>
+
+<article>
+<h2>QC-Script mode</h2>
 
 <div><textarea id="code" name="code">
-meta title "New Batch"
-meta description "New batch description"
+meta title "QualityCrowd Example Batch"
+meta description "This Batch demonstrates all implemented features."
 
-set title "New Batch"
-page "Hello World"
+var sixpoints "1: Bad; 2: Poor; 3: Fair; 4: Good; 5: Excellent; 6: Wow!"
 
+set videowidth 352
+set videoheight 288
+
+macro qualityquestion
+  set answermode continous
+  set width 750
+  set answers $sixpoints
+  question "Please rate the visual video quality"
+end macro
+
+list myvideos
+  foreman_plr10.mp4
+  foreman_plr5.mp4
+  foreman_plr0.4.mp4
+end list
+
+step "Welcome page"
+  title "Welcome"
+  text include(page.welcome.html)
+end step
+
+for video in myvideos
+  step $video
+      video $video
+      $qualityquestion
+  end step
+end for
 </textarea></div>
 
     <script>
       var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+         mode: {name: "qc-script",
+               version: 3,
+               singleLineStringErrors: false},
         lineNumbers: true,
+        indentUnit: 4,
         matchBrackets: true
       });
     </script>
