@@ -1,5 +1,5 @@
 CodeMirror.defineMode("qc-script", function() {
-	var regexBuiltin = /^(meta|set|unset|var|step|end|macro|list|for|in)$/m;
+	var regexBuiltin = /^(meta|set|unset|var|group|step|end|macro|list|for|in)$/m;
 	var regexKeyword = /^(title|text|video|image|question|qualification)$/m;
     var regexAttribute = /^(skipvalidation|title|description|comment|answermode|answers|mediaurl|videowidth|videoheight|delay|workers|timeout|width)$/m;
     var regexSpecial = /^(include)$/m;
